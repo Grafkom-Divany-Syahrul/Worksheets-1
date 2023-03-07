@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Worksheet-1</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/template.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="text-center">
+                                <a class="navbar-brand">Start Bootstrap</a>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+            </div>
+        </nav>
+        <!-- Header-->
+		<div class="bg-dark vh-100">
+			<div class="container-fluid h-100">
+				<div class="row h-100">
+					<div class="col-lg-2 bg-dark text-white">
+						<div class="container-fluid h-100">
+							<div class="row mt-5">
+								<div class="col-12">
+									<select id="mymenu" size="7">
+										<option value="0">Black</option>
+										<option value="1">Red</option>
+										<option value="2">Yellow</option>
+										<option value="3">Green</option>
+										<option value="4">Blue</option>
+										<option value="5">Magenta</option>
+										<option value="6">Cyan</option>
+									</select>
+									<div class="col-6">
+										<button class="btn btn-primary" id="Button1">End Polygon</button>
+									</div>
+									<div class="col-6">
+										<button class="btn btn-primary">Button 2</button>
+									</div>
+									<div class="col-6">
+										<button class="btn btn-primary">Button 3</button>
+									</div>
+									<div class="col-6">
+										<button class="btn btn-primary">Button 4</button>
+									</div>
+									<div class="col-6">
+										<button class="btn btn-primary">Button 5</button>
+									</div>
+									<div class="col-6">
+										<button class="btn btn-primary">Button 6</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-8 bg-dark">
+						<div class="container-fluid h-100 ">
+							<div class="row h-100">
+								<div class="col-12 justify-content-center">
+									<canvas id="gl-canvas" width="900px" height="900px" style="background-color: white;"> </canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-2 bg-dark text-white">
+						<div class="container-fluid h-100">
+							<div class="row mt-5">
+								<div class="col-12">
+									<button class="btn btn-light w-100 mb-2">Button 1</button>
+									<button class="btn btn-light w-100 mb-2">Button 2</button>
+									<button class="btn btn-light w-100 mb-2">Button 3</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Setting Vertex-->
+		<script id="vertex-shader" type="x-shader/x-vertex">
+			#version 300 es
+			in vec4 aPosition;
+			in vec4 aColor;
+	
+			out vec4 vColor;
+	
+	
+			void
+			main()
+			{
+				gl_Position = aPosition;
+				vColor = aColor;
+			}
+		</script>
+
+		<script id="fragment-shader" type="x-shader/x-fragment">
+			#version 300 es
+			precision mediump float;
+	
+			in vec4 vColor;
+			out vec4 fColor;
+	
+			void
+			main()
+			{
+				fColor = vColor;
+			}
+		</script>
+
+		<script src="./Common/initShaders.js"></script>
+		<script src="./Common/MVnew.js"></script>
+		<!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/webGL.js"></script>
+		<script src="js/script.js"></script>
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
