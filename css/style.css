@@ -1,1 +1,42 @@
+/*create selector for class "container p-3 border border-secondary"*/
+.border-secondary {
+    background-color: #0a446e;
+    border-radius: 10px;
+}
 
+.menu{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align:center}
+
+.menu .button{
+    -webkit-transition: all 0.3s ease;   transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-block;
+    padding: 15px;
+    color: #000;
+    font-family: sans-serif;
+    margin-right: 10px;
+    margin-left: 10px;
+    background-color: #fffff1;
+    margin-bottom: 20px;
+    border: 0;border-radius: 10px;
+    box-shadow: 2px 2px 3px #c0c0c0;
+}
+.menu .button.selected{
+    background-color: #686de0;
+    color: #fff
+}
+
+@media (min-width: 650px) {
+    .menu .button:hover {
+        background-color: #686de0;
+        color: #fff
+    }
+}
+
+@media (max-width: 650px) {
+    .menu .button{
+        display: block;
+    }
+}
