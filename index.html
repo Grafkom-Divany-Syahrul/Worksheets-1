@@ -1,132 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>Worksheet-1</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-		<link href="css/style.css" rel="stylesheet">
-    </head>
-    <body>
-        <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container px-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="text-center">
-                                <p class="navbar-brand">Start Bootstrap</p>
-                            </div>
-                        </div>
-                    </div>
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+	<title>Worksheet-1</title>
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+	<!-- Bootstrap icons-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet"/>
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+			crossorigin="anonymous"></script>
+	<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-0">
+	<div class="container">
+		<div class="container">
+			<div class="text-center">
+				<p class="navbar-brand">Start Bootstrap</p>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<div class="bg-dark vh-100 p-3">
+	<div class="container-fluid h-100">
+		<div class="row h-100">
+			<div class="col-lg-3 bg-dark text-white">
+				<div class="container-fluid h-90">
+					<div class="row mt-5">
+						<div class="col-12">
+							
+							<div class="col-6 my-2">
+								<button class="btn btn-primary" id="Button1">End Polygon</button>
+							</div>
+							<div class="container p-3 border border-secondary text-center">
+								<p>Shape</p>
+								<div class="row">
+									<div class="col-4 p-1 ">
+										<button class="btn btn-primary w-100">Garis</button>
+									</div>
+									<div class="col-4 p-1 ">
+										<button class="btn btn-primary w-100">Segitiga</button>
+									</div>
+									<div class="col-4 p-1 ">
+										<button class="btn btn-primary w-100">Segiempat</button>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-4 p-1 ">
+										<button class="btn btn-primary w-100">Segibanyak</button>
+									</div>
+									<div class="col-4 p-1 ">
+										<button class="btn btn-primary w-100">Bintang</button>
+									</div>
+									<div class="col-4 p-1 ">
+										<button class="btn btn-primary w-100">Lingkaran</button>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-4 p-1 ">
+										<button class="btn btn-primary w-100">Button 7</button>
+									</div>
+									<div class="col-4 p-1 ">
+										<button class="btn btn-primary w-100">Button 8</button>
+									</div>
+									<div class="col-4 p-1 ">
+										<button class="btn btn-primary w-100">Button 9</button>
+									</div>
+								</div>
+							</div>
+							
+							<div class="menu container p-0 border border-secondary">
+								<p>Color</p>
+								<button class="button btn btn-primary p-2 selected" value="0">Black</button>
+								<button class="button btn btn-primary p-2" value="1">Red</button>
+								<button class="button btn btn-primary p-2" value="2">Yellow</button>
+								<button class="button btn btn-primary p-2" value="3">Green</button>
+								<button class="button btn btn-primary p-2" value="4">Blue</button>
+								<button class="button btn btn-primary p-2" value="5">Magenta</button>
+								<button class="button btn btn-primary p-2" value="6">Cyan</button>
+							</div>
+						
+						</div>
+					</div>
 				</div>
-            </div>
-        </nav>
-        <!-- Header-->
-		<div class="bg-dark vh-100">
-			<div class="container-fluid h-100">
-				<div class="row h-100">
-					<div class="col-lg-2 bg-dark text-white">
-						<div class="container-fluid h-100">
-							<div class="row mt-5">
-								<div class="col-12">
-									<select id="mymenu" size="7">
-										<option value="0">Black</option>
-										<option value="1">Red</option>
-										<option value="2">Yellow</option>
-										<option value="3">Green</option>
-										<option value="4">Blue</option>
-										<option value="5">Magenta</option>
-										<option value="6">Cyan</option>
-									</select>
-									<div class="col-6 my-2">
-										<button class="btn btn-primary" id="Button1">End Polygon</button>
-									</div>
-									<div class="col-6 my-2">
-										<button class="btn btn-primary">Button 2</button>
-									</div>
-									<div class="col-6 my-2">
-										<button class="btn btn-primary">Button 3</button>
-									</div>
-									<div class="col-6 my-2">
-										<button class="btn btn-primary">Button 4</button>
-									</div>
-									<div class="col-6 my-2">
-										<button class="btn btn-primary">Button 5</button>
-									</div>
-									<div class="col-6 my-2">
-										<button class="btn btn-primary">Button 6</button>
-									</div>
-								</div>
-							</div>
+			</div>
+			<div class="col-lg-6 bg-dark">
+				<div class="container-fluid h-100 ">
+					<div class="row h-100">
+						<div class="col-12 justify-content-center overflow-hidden">
+							<canvas id="gl-canvas" width="750px" height="650px"></canvas>
 						</div>
 					</div>
-					<div class="col-lg-8 bg-dark">
-						<div class="container-fluid h-100 ">
-							<div class="row h-100">
-								<div class="col-12 justify-content-center">
-									<canvas id="gl-canvas" width="900px" height="900px"> </canvas>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2 bg-dark text-white">
-						<div class="container-fluid h-100">
-							<div class="row mt-5">
-								<div class="col-12">
-									<button class="btn btn-light w-100 mb-2">Button 1</button>
-									<button class="btn btn-light w-100 mb-2">Button 2</button>
-									<button class="btn btn-light w-100 mb-2">Button 3</button>
-								</div>
-							</div>
+				</div>
+			</div>
+			<div class="col-lg-2 bg-dark text-white">
+				<div class="container-fluid h-900">
+					<div class="row mt-5">
+						<div class="col-12">
+							<button class="btn btn-light w-100 mb-2">Button 1</button>
+							<button class="btn btn-light w-100 mb-2">Button 2</button>
+							<button class="btn btn-light w-100 mb-2">Button 3</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
 
-		<!-- Setting Shader-->
-		<script id="vertex-shader" type="x-shader/x-vertex">
-			#version 300 es
-			in vec4 aPosition;
-			in vec4 aColor;
+<!-- Setting Shader-->
+<script id="vertex-shader" type="x-shader/x-vertex">
+	#version 300 es
+	in vec4 aPosition;
+	in vec4 aColor;
 	
-			out vec4 vColor;
+	out vec4 vColor;
 	
 	
-			void
-			main()
-			{
-				gl_Position = aPosition;
-				vColor = aColor;
-			}
-		</script>
+	void
+	main()
+	{
+		gl_Position = aPosition;
+		vColor = aColor;
+	}
+</script>
 
-		<script id="fragment-shader" type="x-shader/x-fragment">
-			#version 300 es
-			precision mediump float;
+<script id="fragment-shader" type="x-shader/x-fragment">
+	#version 300 es
+	precision mediump float;
 	
-			in vec4 vColor;
-			out vec4 fColor;
+	in vec4 vColor;
+	out vec4 fColor;
 	
-			void
-			main()
-			{
-				fColor = vColor;
-			}
-		</script>
+	void
+	main()
+	{
+		fColor = vColor;
+	}
+</script>
 
-		<script src="./Common/initShaders.js"></script>
-		<script src="./Common/MVnew.js"></script>
+<script src="./Common/initShaders.js"></script>
+<script src="./Common/MVnew.js"></script>
 
-        <!-- Core theme JS-->
-        <script src="js/webGL.js"></script>
-		<script src="js/script.js"></script>
-    </body>
+<!-- Core theme JS-->
+<script src="js/webGL.js"></script>
+<script src="js/script.js"></script>
+</body>
 </html>
