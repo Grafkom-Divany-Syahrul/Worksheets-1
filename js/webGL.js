@@ -5,6 +5,7 @@ var gl;
 
 var maxNumPositions = 200;
 var index = 0;
+var linePoints = [];
 
 var colors = [
     vec4(0.0, 0.0, 0.0, 1.0),  // black
@@ -17,13 +18,13 @@ var colors = [
 ];
 
 var shapesList = [
-    { name: "Garis", value: 2 },
-    { name: "Segitiga", value: 3 },
-    { name: "Segiempat", value: 4 },
-    { name: "Segilima", value: 5 },
-    { name: "Segibanyak", value: 6 },
-    { name: "Lingkaran", value: 7 },
-    { name: "Bintang", value: 8 },
+    {name: "Garis", value: 2},
+    {name: "Segitiga", value: 3},
+    {name: "Segiempat", value: 4},
+    {name: "Segilima", value: 5},
+    {name: "Segibanyak", value: 6},
+    {name: "Lingkaran", value: 7},
+    {name: "Bintang", value: 8},
 ];
 
 var pointVec, colorVec;
@@ -110,6 +111,42 @@ function init() {
 
         numPositions[numPolygons]++;
         index++;
+        console.log(numPositions)
+
+        if (shape.name === "Segiempat" || shape.name === "Garis") {
+            linePoints[numPositions[numPolygons] - 1] = pointVec;
+            if (numPositions[numPolygons] === 2) {
+                var rasterizedPoint = []
+                if (shape.name === "Garis") {
+                    rasterizedPoint = getDiagonal(linePoints[0][0], linePoints[0][1], linePoints[1][0], linePoints[1][1], 0.01);
+                } else if (shape.name === "Segiempat") {
+                    rasterizedPoint = [
+                        linePoints[0],
+                        vec2(linePoints[1][0], linePoints[0][1]),
+                        linePoints[1],
+                        vec2(linePoints[0][0], linePoints[1][1])
+                    ];
+                }
+
+                numPositions[numPolygons] -= 2;
+                index -= 2;
+
+                for (let i = 0; i < rasterizedPoint.length; i++) {
+                    pointVec = rasterizedPoint[i];
+                    gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+                    gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(pointVec));
+
+                    colorVec = vec4(colors[cIndex]);
+
+                    gl.bindBuffer(gl.ARRAY_BUFFER, cBufferId);
+                    gl.bufferSubData(gl.ARRAY_BUFFER, 16 * index, flatten(colorVec));
+
+                    numPositions[numPolygons]++;
+                    index++;
+                }
+                renderShape()
+            }
+        }
 
         function renderShape() {
             numPolygons++;
@@ -161,17 +198,17 @@ function getDiagonal(x1, y1, x2, y2, distance) {
     const run = x2 - x1
     const rise = y2 - y1
     const hyp = Math.sqrt(Math.pow(rise, 2) + Math.pow(run, 2))
-    const rotation = mat2(run/hyp, -rise/hyp, rise/hyp, run/hyp)
+    const rotation = mat2(run / hyp, -rise / hyp, rise / hyp, run / hyp)
     const rotation180 = mat2(-1, 0, 0, -1)
 
-    const point1 = vec2(x1, y1 + distance/2)
+    const point1 = vec2(x1, y1 + distance / 2)
     const origin1 = vec2(x1, y1)
     const p1 = (add(mult(rotation, subtract(point1, origin1)), origin1))
 
     const p2 = (add(mult(rotation180, subtract(p1, origin1)), origin1))
 
 
-    const point3 = vec2(x2, y2 - distance/2)
+    const point3 = vec2(x2, y2 - distance / 2)
     const origin2 = vec2(x2, y2)
     const p3 = (add(mult(rotation, subtract(point3, origin2)), origin2))
 
