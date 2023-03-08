@@ -4,5 +4,5 @@ Grafika Komputer (CSCE604241) - diselenggarakan oleh Fakultas Ilmu Komputer Univ
 
 ## 👨‍💻 Pengembang 👩‍💻
 - [Divany Harryndira](https://github.com/divanyh) (2106701734)
-- [Syahrul Apriansyah](https://github.com/SyahrulApr86) (2106703891)
+- [Syahrul Apriansyah](https://github.com/SyahrulApr86) (2106708311)
  
