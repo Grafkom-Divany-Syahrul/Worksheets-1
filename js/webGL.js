@@ -69,12 +69,14 @@ function init() {
         removeSelectClassShape();
         this.classList.add('selected-shape');
         shape = shapesList[this.value];
-        if (shape.value === 6) {
+        if (shape.name === "Segibanyak") {
             endPolygonButton.disabled = false;
         } else {
             endPolygonButton.disabled = true;
         }
-        console.log(shape);
+        // reset point which unrendered
+        numPositions[numPolygons] = 0;
+        index = start[numPolygons];
     }
 
 
