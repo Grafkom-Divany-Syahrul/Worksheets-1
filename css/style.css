@@ -1,11 +1,18 @@
+html * {
+    font-family: 'Quicksand', sans-serif !important;
+    text-align: center;
+}
+
+h1 {
+    padding-top: 10px;
+}
+
 .border-secondary {
-    background-color: #0a446e;
+    background-color: #075985;
     border-radius: 10px;
 }
 
 .menu{
-    margin-bottom: 20px;
-    margin-top: 20px;
     text-align:center}
 
 .menu .button,
@@ -28,14 +35,14 @@
 
 .menu .button-shape.selected-shape,
 .menu .button.selected{
-    background-color: #1d214d;
+    background-color: #0ea5e9;
     color: #fff
 }
 
 @media (min-width: 650px) {
     .menu .button:hover,
     .menu .button-shape:hover {
-        background-color: #1D214DFF;
+        background-color: #0ea5e9;
         color: #fff
     }
 }
@@ -46,3 +53,4 @@
         display: block;
     }
 }
+
