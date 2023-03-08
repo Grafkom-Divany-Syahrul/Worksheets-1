@@ -18,13 +18,13 @@ var colors = [
 ];
 
 var shapesList = [
-    {name: "Garis", value: 2},
-    {name: "Segitiga", value: 3},
-    {name: "Segiempat", value: 4},
-    {name: "Segilima", value: 5},
-    {name: "Segibanyak", value: 6},
-    {name: "Lingkaran", value: 7},
-    {name: "Bintang", value: 8},
+    {name: "Line", value: 2},
+    {name: "Triangle", value: 3},
+    {name: "Rectangular", value: 4},
+    {name: "Pentagon", value: 5},
+    {name: "Polygon", value: 6},
+    {name: "Circle", value: 7},
+    {name: "Star", value: 8},
 ];
 
 var pointVec, colorVec;
@@ -64,21 +64,27 @@ function init() {
 
     // membuat shape dapat dipilih dengan button
     const endPolygonButton = document.querySelector('.end-poly')
+    const lineSlider = document.querySelector('.line-slider')
     var buttonShape = document.getElementsByClassName("button-shape");
     var addSelectClassShape = function () {
         removeSelectClassShape();
         this.classList.add('selected-shape');
         shape = shapesList[this.value];
-        if (shape.name === "Segibanyak") {
+        if (shape.name === "Polygon") {
             endPolygonButton.disabled = false;
         } else {
             endPolygonButton.disabled = true;
+        }
+
+        if (shape.name === "Line") {
+            lineSlider.disabled = false;
+        } else {
+            lineSlider.disabled = true;
         }
         // reset point which unrendered
         numPositions[numPolygons] = 0;
         index = start[numPolygons];
     }
-
 
     var removeSelectClassShape = function () {
         for (var i = 0; i < buttonShape.length; i++) {
@@ -89,6 +95,7 @@ function init() {
     for (var i = 0; i < buttonShape.length; i++) {
         buttonShape[i].addEventListener("click", addSelectClassShape);
     }
+
 
     var a = document.getElementById("Button1")
     a.addEventListener("click", function () {
@@ -115,13 +122,14 @@ function init() {
         index++;
         console.log(numPositions)
 
-        if (shape.name === "Segiempat" || shape.name === "Garis") {
+        if (shape.name === "Rectangular" || shape.name === "Line") {
             linePoints[numPositions[numPolygons] - 1] = pointVec;
             if (numPositions[numPolygons] === 2) {
                 var rasterizedPoint = []
-                if (shape.name === "Garis") {
-                    rasterizedPoint = getDiagonal(linePoints[0][0], linePoints[0][1], linePoints[1][0], linePoints[1][1], 0.01);
-                } else if (shape.name === "Segiempat") {
+                if (shape.name === "Line") {
+                    var thickness = (lineSlider.value / 100) * 0.095 + 0.005;
+                    rasterizedPoint = getDiagonal(linePoints[0][0], linePoints[0][1], linePoints[1][0], linePoints[1][1], thickness);
+                } else if (shape.name === "Rectangular") {
                     rasterizedPoint = [
                         linePoints[0],
                         vec2(linePoints[1][0], linePoints[0][1]),
@@ -220,3 +228,4 @@ function getDiagonal(x1, y1, x2, y2, distance) {
         p4
     ]
 }
+
