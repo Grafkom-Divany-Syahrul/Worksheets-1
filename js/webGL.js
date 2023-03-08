@@ -109,7 +109,7 @@ function init() {
             start[numPolygons] = index;
             render();
         }
-        
+
         // Pengecekan jumlah titik
         if (numPositions[numPolygons] === shape.value) {
             renderShape();
