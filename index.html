@@ -14,6 +14,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
 			integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
 			crossorigin="anonymous"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
 	<link href="css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -39,29 +42,34 @@
 							<div class="col-6 my-2">
 								<button class="btn btn-primary" id="Button1">End Polygon</button>
 							</div>
-							<div class="menu container p-3 border border-secondary text-center">
-								<p>Shape</p>
-								<button class="button-shape btn btn-primary p-2 m-1 selected-shape" value="0">Garis</button>
-								<button class="button-shape btn btn-primary p-2 m-1" value="1">Segitiga</button>
-								<button class="button-shape btn btn-primary p-2 m-1" value="2">Segiempat</button>
-								<button class="button-shape btn btn-primary p-2 m-1" value="3">Segilima</button>
-								<button class="button-shape btn btn-primary p-2 m-1" value="4">Segibanyak</button>
-								<button class="button-shape btn btn-primary p-2 m-1" value="5">Lingkaran</button>
-								<button class="button-shape btn btn-primary p-2 m-1" value="6">Bintang</button>
-<!--								<button class="button-shape btn btn-primary p-2 m-1" value="4">-</button>-->
-<!--								<button class="button-shape btn btn-primary p-2 m-1" value="5">-</button>-->
-<!--								<button class="button-shape btn btn-primary p-2 m-1" value="6">-</button>-->
+							<div class="container p-3 border border-secondary text-center m-3">
+								<p>Choose your shape :)</p>
+								<div class="menu">
+									<button class="button-shape btn btn-primary p-2 m-1 selected-shape" value="0">Garis
+									</button>
+									<button class="button-shape btn btn-primary p-2 m-1" value="1">Segitiga</button>
+									<button class="button-shape btn btn-primary p-2 m-1" value="2">Segiempat</button>
+									<button class="button-shape btn btn-primary p-2 m-1" value="3">Segilima</button>
+									<button class="button-shape btn btn-primary p-2 m-1" value="4">Segibanyak</button>
+									<button class="button-shape btn btn-primary p-2 m-1" value="5">Lingkaran</button>
+									<button class="button-shape btn btn-primary p-2 m-1" value="6">Bintang</button>
+									<!--								<button class="button-shape btn btn-primary p-2 m-1" value="4">-</button>-->
+									<!--								<button class="button-shape btn btn-primary p-2 m-1" value="5">-</button>-->
+									<!--								<button class="button-shape btn btn-primary p-2 m-1" value="6">-</button>-->
+								</div>
 							</div>
 							
-							<div class="menu container p-3 border border-secondary">
-								<p>Color</p>
-								<button class="button btn btn-primary p-2 m-1 selected" value="0">Black</button>
-								<button class="button btn btn-primary p-2 m-1" value="1">Red</button>
-								<button class="button btn btn-primary p-2 m-1" value="2">Yellow</button>
-								<button class="button btn btn-primary p-2 m-1" value="3">Green</button>
-								<button class="button btn btn-primary p-2 m-1" value="4">Blue</button>
-								<button class="button btn btn-primary p-2 m-1" value="5">Magenta</button>
-								<button class="button btn btn-primary p-2 m-1" value="6">Cyan</button>
+							<div class="container p-3 border border-secondary m-3">
+								<p>Choose your color :)</p>
+								<div class="menu">
+									<button class="button btn btn-primary p-2 m-1 selected black" value="0">Black</button>
+									<button class="button btn btn-primary p-2 m-1 red" value="1">Red</button>
+									<button class="button btn btn-primary p-2 m-1 yellow" value="2">Yellow</button>
+									<button class="button btn btn-primary p-2 m-1 green" value="3">Green</button>
+									<button class="button btn btn-primary p-2 m-1 blue" value="4">Blue</button>
+									<button class="button btn btn-primary p-2 m-1 magenta" value="5">Magenta</button>
+									<button class="button btn btn-primary p-2 m-1 cyan" value="6">Cyan</button>
+								</div>
 							</div>
 						
 						</div>
@@ -107,6 +115,9 @@
 		gl_Position = aPosition;
 		vColor = aColor;
 	}
+
+
+
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
@@ -121,6 +132,9 @@
 	{
 		fColor = vColor;
 	}
+
+
+
 </script>
 
 <script src="./Common/initShaders.js"></script>

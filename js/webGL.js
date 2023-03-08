@@ -109,14 +109,15 @@ function init() {
             start[numPolygons] = index;
             render();
         }
-
-        if (numPositions[numPolygons] == shape.value) {
+        
+        // Pengecekan jumlah titik
+        if (numPositions[numPolygons] === shape.value) {
             renderShape();
         }
     });
 
     gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.clearColor(0.8, 0.8, 0.8, 1.0);
+    gl.clearColor(0.99, 0.96, 0.93, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     //
     //  Load shaders and initialize attribute buffers
