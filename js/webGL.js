@@ -25,6 +25,7 @@ var shapesList = [
     { name: "Lingkaran", value: 7 },
     { name: "Bintang", value: 8 },
 ];
+
 var pointVec, colorVec;
 var shape = shapesList[0];
 var numPolygons = 0;
@@ -61,13 +62,20 @@ function init() {
     }
 
     // membuat shape dapat dipilih dengan button
+    const endPolygonButton = document.querySelector('.end-poly')
     var buttonShape = document.getElementsByClassName("button-shape");
     var addSelectClassShape = function () {
         removeSelectClassShape();
         this.classList.add('selected-shape');
         shape = shapesList[this.value];
+        if (shape.value === 6) {
+            endPolygonButton.disabled = false;
+        } else {
+            endPolygonButton.disabled = true;
+        }
         console.log(shape);
     }
+
 
     var removeSelectClassShape = function () {
         for (var i = 0; i < buttonShape.length; i++) {

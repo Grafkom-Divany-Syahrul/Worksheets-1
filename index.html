@@ -35,13 +35,10 @@
 	<div class="container-fluid h-100">
 		<div class="row h-100">
 			<div class="col-lg-3 bg-dark text-white">
-				<div class="container-fluid h-90">
+				<div class="container-fluid h-90 ">
 					<div class="row mt-5">
 						<div class="col-12">
 							
-							<div class="col-6 my-2">
-								<button class="btn btn-primary" id="Button1">End Polygon</button>
-							</div>
 							<div class="container p-3 border border-secondary text-center m-3">
 								<p>Choose your shape :)</p>
 								<div class="menu">
@@ -59,10 +56,15 @@
 								</div>
 							</div>
 							
+							<div class="col-6 my-2">
+								<button class="btn btn-primary end-poly" id="Button1" disabled>End Polygon</button>
+							</div>
+							
 							<div class="container p-3 border border-secondary m-3">
 								<p>Choose your color :)</p>
 								<div class="menu">
-									<button class="button btn btn-primary p-2 m-1 selected black" value="0">Black</button>
+									<button class="button btn btn-primary p-2 m-1 selected black" value="0">Black
+									</button>
 									<button class="button btn btn-primary p-2 m-1 red" value="1">Red</button>
 									<button class="button btn btn-primary p-2 m-1 yellow" value="2">Yellow</button>
 									<button class="button btn btn-primary p-2 m-1 green" value="3">Green</button>
@@ -118,6 +120,9 @@
 
 
 
+
+
+
 </script>
 
 <script id="fragment-shader" type="x-shader/x-fragment">
@@ -132,6 +137,9 @@
 	{
 		fColor = vColor;
 	}
+
+
+
 
 
 
