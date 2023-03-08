@@ -17,7 +17,17 @@ var colors = [
     vec4(1.0, 0.0, 1.0, 1.0),  // magenta
     vec4(0.0, 1.0, 1.0, 1.0)   // cyan
 ];
-var t, tt;
+
+var shapesList = [
+    "Garis",
+    "Segitiga",
+    "Segiempat",
+    "Segibanyak",
+    "Lingkaran",
+    "Bintang",
+];
+var pointVec, colorVec;
+var shape = shapesList[0];
 var numPolygons = 0;
 var numPositions = [];
 numPositions[0] = 0;
@@ -50,6 +60,24 @@ function init() {
         button[i].addEventListener("click", addSelectClass);
     }
 
+    var buttonShape = document.getElementsByClassName("button-shape");
+    var addSelectClassShape = function () {
+        removeSelectClassShape();
+        this.classList.add('selected-shape');
+        shape = shapesList[this.value];
+        console.log(shape);
+    }
+
+    var removeSelectClassShape = function () {
+        for (var i = 0; i < buttonShape.length; i++) {
+            buttonShape[i].classList.remove('selected-shape')
+        }
+    }
+
+    for (var i = 0; i < buttonShape.length; i++) {
+        buttonShape[i].addEventListener("click", addSelectClassShape);
+    }
+
     var a = document.getElementById("Button1")
     a.addEventListener("click", function () {
         numPolygons++;
@@ -59,21 +87,23 @@ function init() {
     });
 
     canvas.addEventListener("mousedown", function (event) {
-        t = vec2(2 * (event.clientX - canvas.offsetLeft + window.scrollX) / canvas.width - 1,
+        pointVec = vec2(2 * (event.clientX - canvas.offsetLeft + window.scrollX) / canvas.width - 1,
             2 * (canvas.height - (event.clientY - canvas.offsetTop + window.scrollY)) / canvas.height - 1);
 
 
         gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
-        gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(t));
+        gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(pointVec));
 
-        tt = vec4(colors[cindex]);
+        colorVec = vec4(colors[cindex]);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, cBufferId);
-        gl.bufferSubData(gl.ARRAY_BUFFER, 16 * index, flatten(tt));
+        gl.bufferSubData(gl.ARRAY_BUFFER, 16 * index, flatten(colorVec));
 
         numPositions[numPolygons]++;
         index++;
     });
+
+
 
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.clearColor(0.8, 0.8, 0.8, 1.0);
