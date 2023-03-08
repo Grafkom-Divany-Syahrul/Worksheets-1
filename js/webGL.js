@@ -6,8 +6,6 @@ var gl;
 var maxNumPositions = 200;
 var index = 0;
 
-var cindex = 0;
-
 var colors = [
     vec4(0.0, 0.0, 0.0, 1.0),  // black
     vec4(1.0, 0.0, 0.0, 1.0),  // red
@@ -17,11 +15,23 @@ var colors = [
     vec4(1.0, 0.0, 1.0, 1.0),  // magenta
     vec4(0.0, 1.0, 1.0, 1.0)   // cyan
 ];
-var t, tt;
+
+var shapesList = [
+    { name: "Garis", value: 2 },
+    { name: "Segitiga", value: 3 },
+    { name: "Segiempat", value: 4 },
+    { name: "Segilima", value: 5 },
+    { name: "Segibanyak", value: 6 },
+    { name: "Lingkaran", value: 7 },
+    { name: "Bintang", value: 8 },
+];
+var pointVec, colorVec;
+var shape = shapesList[0];
 var numPolygons = 0;
 var numPositions = [];
 numPositions[0] = 0;
 var start = [0];
+var cIndex = 0;
 
 init();
 
@@ -36,7 +46,7 @@ function init() {
     var addSelectClass = function () {
         removeSelectClass();
         this.classList.add('selected');
-        cindex = this.value;
+        cIndex = this.value;
         console.log(this.value);
     }
 
@@ -50,6 +60,25 @@ function init() {
         button[i].addEventListener("click", addSelectClass);
     }
 
+    // membuat shape dapat dipilih dengan button
+    var buttonShape = document.getElementsByClassName("button-shape");
+    var addSelectClassShape = function () {
+        removeSelectClassShape();
+        this.classList.add('selected-shape');
+        shape = shapesList[this.value];
+        console.log(shape);
+    }
+
+    var removeSelectClassShape = function () {
+        for (var i = 0; i < buttonShape.length; i++) {
+            buttonShape[i].classList.remove('selected-shape')
+        }
+    }
+
+    for (var i = 0; i < buttonShape.length; i++) {
+        buttonShape[i].addEventListener("click", addSelectClassShape);
+    }
+
     var a = document.getElementById("Button1")
     a.addEventListener("click", function () {
         numPolygons++;
@@ -59,20 +88,31 @@ function init() {
     });
 
     canvas.addEventListener("mousedown", function (event) {
-        t = vec2(2 * (event.clientX - canvas.offsetLeft + window.scrollX) / canvas.width - 1,
+        pointVec = vec2(2 * (event.clientX - canvas.offsetLeft + window.scrollX) / canvas.width - 1,
             2 * (canvas.height - (event.clientY - canvas.offsetTop + window.scrollY)) / canvas.height - 1);
 
 
         gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
-        gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(t));
+        gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(pointVec));
 
-        tt = vec4(colors[cindex]);
+        colorVec = vec4(colors[cIndex]);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, cBufferId);
-        gl.bufferSubData(gl.ARRAY_BUFFER, 16 * index, flatten(tt));
+        gl.bufferSubData(gl.ARRAY_BUFFER, 16 * index, flatten(colorVec));
 
         numPositions[numPolygons]++;
         index++;
+
+        function renderShape() {
+            numPolygons++;
+            numPositions[numPolygons] = 0;
+            start[numPolygons] = index;
+            render();
+        }
+
+        if (numPositions[numPolygons] == shape.value) {
+            renderShape();
+        }
     });
 
     gl.viewport(0, 0, canvas.width, canvas.height);
@@ -106,4 +146,32 @@ function render() {
     for (var i = 0; i < numPolygons; i++) {
         gl.drawArrays(gl.TRIANGLE_FAN, start[i], numPositions[i]);
     }
+}
+
+function getDiagonal(x1, y1, x2, y2, distance) {
+    const run = x2 - x1
+    const rise = y2 - y1
+    const hyp = Math.sqrt(Math.pow(rise, 2) + Math.pow(run, 2))
+    const rotation = mat2(run/hyp, -rise/hyp, rise/hyp, run/hyp)
+    const rotation180 = mat2(-1, 0, 0, -1)
+
+    const point1 = vec2(x1, y1 + distance/2)
+    const origin1 = vec2(x1, y1)
+    const p1 = (add(mult(rotation, subtract(point1, origin1)), origin1))
+
+    const p2 = (add(mult(rotation180, subtract(p1, origin1)), origin1))
+
+
+    const point3 = vec2(x2, y2 - distance/2)
+    const origin2 = vec2(x2, y2)
+    const p3 = (add(mult(rotation, subtract(point3, origin2)), origin2))
+
+    const p4 = (add(mult(rotation180, subtract(p3, origin2)), origin2))
+
+    return [
+        p1,
+        p2,
+        p3,
+        p4
+    ]
 }
