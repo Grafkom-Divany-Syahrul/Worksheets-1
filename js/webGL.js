@@ -30,7 +30,7 @@ var shapesList = [
 
 var theta = 0.0;
 var thetaLoc;
-var speedRotation = 100;
+var speedRotation = 0;
 var isRotate = false;
 var direction = true;
 
@@ -72,7 +72,7 @@ function init() {
 
     // membuat shape dapat dipilih dengan button
     const endPolygonButton = document.querySelector('.end-poly')
-    const lineSlider = document.querySelector('.line-slider')
+    const lineSlider = document.querySelector('#line-slider')
     var buttonShape = document.getElementsByClassName("button-shape");
     var addSelectClassShape = function () {
         removeSelectClassShape();
@@ -103,7 +103,6 @@ function init() {
     for (var i = 0; i < buttonShape.length; i++) {
         buttonShape[i].addEventListener("click", addSelectClassShape);
     }
-
 
     var a = document.getElementById("Button1")
     a.addEventListener("click", function () {
@@ -225,14 +224,30 @@ function init() {
             btnRotate.innerHTML = "Start Rotate";
         }
     }
+
+    document.getElementById("btnChangeRotation").onclick = function () {
+        direction = !direction;
+    }
+
+    const speedSlider = document.querySelector('#speed-slider');
+    speedSlider.addEventListener('input', function () {
+        speedRotation = speedSlider.value
+    }
+    );
 }
 
 function render() {
 
     gl.clear(gl.COLOR_BUFFER_BIT);
 
+    for (var i = 0; i < numPolygons; i++) {
+        gl.drawArrays(gl.TRIANGLE_FAN, start[i], numPositions[i]);
+    }
+
     if (isRotate) {
-        theta += 1;
+        theta += direction ? 0.01 : -0.01;
+    } else {
+        theta = 0;
     }
     gl.uniform1f(thetaLoc, theta);
 
@@ -241,9 +256,6 @@ function render() {
         speedRotation
     );
 
-    for (var i = 0; i < numPolygons; i++) {
-        gl.drawArrays(gl.TRIANGLE_FAN, start[i], numPositions[i]);
-    }
     colors[7] = vec4(Math.random(), Math.random(), Math.random(), 1.0);
 }
 

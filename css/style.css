@@ -59,3 +59,8 @@ h1 {
     color: #fff
 }
 
+.chosen:hover {
+    background-color: #7d9da8;
+    color: #fff
+}
+
