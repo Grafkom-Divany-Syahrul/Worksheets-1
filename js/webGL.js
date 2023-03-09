@@ -27,7 +27,7 @@ var shapesList = [
     {name: "Pentagon", value: 5},
     {name: "Polygon", value: Number.MAX_SAFE_INTEGER},
     {name: "Circle", value: 7},
-    {name: "Star", value: 8},
+    {name: "Moon", value: 8},
 ];
 
 // variabel mengenai rotasi
@@ -210,6 +210,53 @@ function init() {
                 numPositions[numPolygons]++;
                 index++;
             }
+            renderShape()
+        }
+
+        // handle penggambaran bulan
+        if (shape.name === "Moon") {
+            var moonCenter = pointVec;
+
+            // menghapus 1 titik terakhir
+            numPositions[numPolygons] -= 1;
+            index -= 1;
+
+            var radiusMoon = Math.random() * 0.5 + 0.1;
+
+            // menggambar bulan dengan menggambar 2 lingkaran, lingkaran besar berwana sesuai pilihan warna, dan lingkaran kecil berwarna putih
+            for (let i = 0; i < 72; i++) {
+                pointVec = vec2(moonCenter[0] + radiusMoon * Math.cos(i * 2 * Math.PI / 72), moonCenter[1] + radiusMoon * Math.sin(i * 2 * Math.PI / 72));
+                gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+                gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(pointVec));
+
+                colorVec = vec4(colors[cIndex]);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, cBufferId);
+                gl.bufferSubData(gl.ARRAY_BUFFER, 16 * index, flatten(colorVec));
+
+                numPositions[numPolygons]++;
+                index++;
+            }
+
+            // center lingkaran kecil berada sedikit di kanan bawah dari center lingkaran besar
+            var whiteCircleCenter = vec2(moonCenter[0] + radiusMoon * 0.25, moonCenter[1] + radiusMoon * 0.25);
+
+            // radius lingkaran kecil
+            var radiusWhiteCircle = 2*radiusMoon / 3;
+            for (let i = 0; i < 72; i++) {
+                pointVec = vec2(whiteCircleCenter[0] + radiusWhiteCircle * Math.cos(i * 2 * Math.PI / 72), whiteCircleCenter[1] + radiusWhiteCircle * Math.sin(i * 2 * Math.PI / 72));
+                gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+                gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(pointVec));
+
+                colorVec = vec4(1.0, 1.0, 1.0, 1.0);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, cBufferId);
+                gl.bufferSubData(gl.ARRAY_BUFFER, 16 * index, flatten(colorVec));
+
+                numPositions[numPolygons]++;
+                index++;
+            }
+
             renderShape()
         }
 
