@@ -23,7 +23,7 @@ var shapesList = [
     {name: "Triangle", value: 3},
     {name: "Rectangular", value: 4},
     {name: "Pentagon", value: 5},
-    {name: "Polygon", value: 6},
+    {name: "Polygon", value: Number.MAX_SAFE_INTEGER},
     {name: "Circle", value: 7},
     {name: "Star", value: 8},
 ];
