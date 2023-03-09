@@ -7,6 +7,7 @@ var maxNumPositions = 200;
 var index = 0;
 var linePoints = [];
 
+// variabel untuk menampung list warna
 var colors = [
     vec4(0.0, 0.0, 0.0, 1.0),  // black
     vec4(1.0, 0.0, 0.0, 1.0),  // red
@@ -18,6 +19,7 @@ var colors = [
     vec4(Math.random(), Math.random(), Math.random(), 1.0),  // random
 ];
 
+// variabel untuk menampung list shape
 var shapesList = [
     {name: "Line", value: 2},
     {name: "Triangle", value: 3},
@@ -28,12 +30,14 @@ var shapesList = [
     {name: "Star", value: 8},
 ];
 
+// variabel mengenai rotasi
 var theta = 0.0;
 var thetaLoc;
 var speedRotation = 0;
 var isRotate = false;
 var direction = true;
 
+// variabel mengenai urutan penggambaran polygon
 var pointVec, colorVec;
 var shape = shapesList[0];
 var numPolygons = 0;
@@ -41,7 +45,6 @@ var numPositions = [];
 numPositions[0] = 0;
 var start = [0];
 var cIndex = 0;
-// var state = states[0];
 
 init();
 
@@ -78,18 +81,14 @@ function init() {
         removeSelectClassShape();
         this.classList.add('selected-shape');
         shape = shapesList[this.value];
-        if (shape.name === "Polygon") {
-            endPolygonButton.disabled = false;
-        } else {
-            endPolygonButton.disabled = true;
-        }
 
-        if (shape.name === "Line") {
-            lineSlider.disabled = false;
-        } else {
-            lineSlider.disabled = true;
-        }
-        // reset point which unrendered
+        // membuat button end polygon muncul ketika shape polygon dipilih
+        endPolygonButton.disabled = shape.name !== "Polygon";
+
+        // membuat slider line muncul ketika shape line dipilih
+        lineSlider.disabled = shape.name !== "Line";
+
+        // reset titik yang belum di render pada canvas
         numPositions[numPolygons] = 0;
         index = start[numPolygons];
     }
@@ -104,6 +103,7 @@ function init() {
         buttonShape[i].addEventListener("click", addSelectClassShape);
     }
 
+    // membuat ketika button end polygon di klik, maka polygon yang belum di render akan di render
     var a = document.getElementById("Button1")
     a.addEventListener("click", function () {
         numPolygons++;
@@ -112,6 +112,7 @@ function init() {
         render();
     });
 
+    // mengatur button untuk mereset canvas
     var clear = document.getElementById("btnClear")
     clear.addEventListener("click", () => {
         numPolygons = 0
@@ -121,33 +122,40 @@ function init() {
         index = 0;
         theta = 0;
         render()
-      });
+    });
 
+    // event listener saat mouse di klik
     canvas.addEventListener("mousedown", function (event) {
+        // Mendapatkan posisi klik mouse dan mengkonversi ke koordinat WebGL
         pointVec = vec2(2 * (event.clientX - canvas.offsetLeft + window.scrollX) / canvas.width - 1,
             2 * (canvas.height - (event.clientY - canvas.offsetTop + window.scrollY)) / canvas.height - 1);
 
-
+        // Binding buffer dan mengirim data titik ke buffer
         gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
         gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(pointVec));
 
+        // Membuat vektor warna dan mengirimnya ke buffer warna
         colorVec = vec4(colors[cIndex]);
-
         gl.bindBuffer(gl.ARRAY_BUFFER, cBufferId);
         gl.bufferSubData(gl.ARRAY_BUFFER, 16 * index, flatten(colorVec));
 
+        // Menambah jumlah titik dan index
         numPositions[numPolygons]++;
         index++;
-        console.log(numPositions)
 
+        // handle penggambaran rectangle dan line
         if (shape.name === "Rectangular" || shape.name === "Line") {
-            linePoints[numPositions[numPolygons] - 1] = pointVec;
+            linePoints[numPositions[numPolygons] - 1] = pointVec; // titik asli garis (2 titik)
             if (numPositions[numPolygons] === 2) {
+                // Jika sudah dua titik, rasterize bentuk
                 var rasterizedPoint = []
+
+                // mengatur ketebalan garis dan menggambar garis
                 if (shape.name === "Line") {
                     var thickness = (lineSlider.value / 100) * 0.095 + 0.005;
                     rasterizedPoint = getDiagonal(linePoints[0][0], linePoints[0][1], linePoints[1][0], linePoints[1][1], thickness);
                 } else if (shape.name === "Rectangular") {
+                    // Jika menggambar rectangular, buat 4 titik diagonal dari dua titik sebelumnya
                     rasterizedPoint = [
                         linePoints[0],
                         vec2(linePoints[1][0], linePoints[0][1]),
@@ -156,9 +164,11 @@ function init() {
                     ];
                 }
 
+                // menghapus 2 titik terakhir
                 numPositions[numPolygons] -= 2;
                 index -= 2;
 
+                // Kirim data titik dan warna ke buffer untuk setiap titik yang baru dibuat
                 for (let i = 0; i < rasterizedPoint.length; i++) {
                     pointVec = rasterizedPoint[i];
                     gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
@@ -172,10 +182,13 @@ function init() {
                     numPositions[numPolygons]++;
                     index++;
                 }
+
+                // Render bentuk baru
                 renderShape()
             }
         }
 
+        // handle penggambaran polygon
         function renderShape() {
             numPolygons++;
             numPositions[numPolygons] = 0;
@@ -198,6 +211,7 @@ function init() {
     var program = initShaders(gl, "vertex-shader", "fragment-shader");
     gl.useProgram(program);
 
+    // Load the data into the GPU
     var bufferId = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
     gl.bufferData(gl.ARRAY_BUFFER, 8 * maxNumPositions, gl.STATIC_DRAW);
@@ -214,6 +228,7 @@ function init() {
 
     thetaLoc = gl.getUniformLocation(program, "uTheta");
 
+    // mengatur perilaku button rotasi
     document.getElementById("btnRotate").onclick = function () {
         isRotate = !isRotate;
         var btnRotate = document.getElementById("btnRotate");
@@ -226,14 +241,16 @@ function init() {
         }
     }
 
+    // mengatur perilaku button ganti arah rotasi
     document.getElementById("btnChangeRotation").onclick = function () {
         direction = !direction;
     }
 
+    // mengatur perilaku button speed rotasi
     const speedSlider = document.querySelector('#speed-slider');
     speedSlider.addEventListener('input', function () {
-        speedRotation = speedSlider.value
-    }
+            speedRotation = speedSlider.value
+        }
     );
 }
 
@@ -253,13 +270,16 @@ function render() {
     gl.uniform1f(thetaLoc, theta);
 
     setTimeout(
-        function () {requestAnimationFrame(render);},
+        function () {
+            requestAnimationFrame(render);
+        },
         speedRotation
     );
 
     colors[7] = vec4(Math.random(), Math.random(), Math.random(), 1.0);
 }
 
+//  fungsi yang digunakan untuk menghasilkan koordinat dari titik-titik pada diagonal dari sebuah objek persegi panjang.
 function getDiagonal(x1, y1, x2, y2, distance) {
     const run = x2 - x1
     const rise = y2 - y1
