@@ -14,7 +14,8 @@ var colors = [
     vec4(0.0, 1.0, 0.0, 1.0),  // green
     vec4(0.0, 0.0, 1.0, 1.0),  // blue
     vec4(1.0, 0.0, 1.0, 1.0),  // magenta
-    vec4(0.0, 1.0, 1.0, 1.0)   // cyan
+    vec4(0.0, 1.0, 1.0, 1.0),  // cyan
+    vec4(Math.random(), Math.random(), Math.random(), 1.0),  // random
 ];
 
 var shapesList = [
@@ -202,6 +203,7 @@ function render() {
     for (var i = 0; i < numPolygons; i++) {
         gl.drawArrays(gl.TRIANGLE_FAN, start[i], numPositions[i]);
     }
+    colors[7] = vec4(Math.random(), Math.random(), Math.random(), 1.0);
 }
 
 function getDiagonal(x1, y1, x2, y2, distance) {
