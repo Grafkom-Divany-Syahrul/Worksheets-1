@@ -28,10 +28,10 @@ var shapesList = [
     {name: "Star", value: 8},
 ];
 
-// var states = [
-//     {name: "Default", value: 1},
-//     {name: "Rotating", value: 2},
-// ]
+var states = [
+    {name: "Default", value: 1},
+    {name: "Rotating", value: 2},
+]
 
 var pointVec, colorVec;
 var shape = shapesList[0];
@@ -40,7 +40,9 @@ var numPositions = [];
 numPositions[0] = 0;
 var start = [0];
 var cIndex = 0;
-// var state = states[0];
+var state = states[0];
+var theta = 0.0;
+var thetaLoc;
 
 init();
 
@@ -210,6 +212,18 @@ function init() {
     var colorLoc = gl.getAttribLocation(program, "aColor");
     gl.vertexAttribPointer(colorLoc, 4, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(colorLoc);
+
+    thetaLoc = gl.getUniformLocation(program, "uTheta");
+
+    var ba = document.getElementById("btnAnimate");
+    ba.addEventListener("click", () => {
+        state = states[1];
+    });
+
+    var bs = document.getElementById("btnStopAnimate");
+    bs.addEventListener("click", () => {
+        state = states[0];
+    });
 }
 
 function render() {
@@ -219,6 +233,13 @@ function render() {
     for (var i = 0; i < numPolygons; i++) {
         gl.drawArrays(gl.TRIANGLE_FAN, start[i], numPositions[i]);
     }
+
+    if (state.name == 'Rotating'){
+        theta += 0.5;
+    }else{
+        theta = 0.0;
+    }
+    gl.uniform1f(thetaLoc, theta);
     colors[7] = vec4(Math.random(), Math.random(), Math.random(), 1.0);
 }
 
