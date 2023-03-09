@@ -28,10 +28,11 @@ var shapesList = [
     {name: "Star", value: 8},
 ];
 
-// var states = [
-//     {name: "Default", value: 1},
-//     {name: "Rotating", value: 2},
-// ]
+var theta = 0.0;
+var thetaLoc;
+var speedRotation = 100;
+var isRotate = false;
+var direction = true;
 
 var pointVec, colorVec;
 var shape = shapesList[0];
@@ -210,11 +211,35 @@ function init() {
     var colorLoc = gl.getAttribLocation(program, "aColor");
     gl.vertexAttribPointer(colorLoc, 4, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(colorLoc);
+
+    thetaLoc = gl.getUniformLocation(program, "uTheta");
+
+    document.getElementById("btnRotate").onclick = function () {
+        isRotate = !isRotate;
+        var btnRotate = document.getElementById("btnRotate");
+        if (isRotate) {
+            btnRotate.classList.add("chosen");
+            btnRotate.innerHTML = "Stop Rotate";
+        } else {
+            btnRotate.classList.remove("chosen");
+            btnRotate.innerHTML = "Start Rotate";
+        }
+    }
 }
 
 function render() {
 
     gl.clear(gl.COLOR_BUFFER_BIT);
+
+    if (isRotate) {
+        theta += 1;
+    }
+    gl.uniform1f(thetaLoc, theta);
+
+    setTimeout(
+        function () {requestAnimationFrame(render);},
+        speedRotation
+    );
 
     for (var i = 0; i < numPolygons; i++) {
         gl.drawArrays(gl.TRIANGLE_FAN, start[i], numPositions[i]);
