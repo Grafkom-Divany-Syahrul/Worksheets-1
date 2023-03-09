@@ -3,7 +3,7 @@
 var canvas;
 var gl;
 
-var maxNumPositions = 200;
+var maxNumPositions = 3600;
 var index = 0;
 var linePoints = [];
 
@@ -186,6 +186,31 @@ function init() {
                 // Render bentuk baru
                 renderShape()
             }
+        }
+
+        // handle penggambaran lingkaran
+        if (shape.name === "Circle") {
+            var circleCenter = pointVec;
+
+            // menghapus 1 titik terakhir
+            numPositions[numPolygons] -= 1;
+            index -= 1;
+            var radius = Math.random() * 0.5 + 0.1;
+
+            for (let i = 0; i < 72; i++) {
+                pointVec = vec2(circleCenter[0] + radius * Math.cos(i * 2 * Math.PI / 72), circleCenter[1] + radius * Math.sin(i * 2 * Math.PI / 72));
+                gl.bindBuffer(gl.ARRAY_BUFFER, bufferId);
+                gl.bufferSubData(gl.ARRAY_BUFFER, 8 * index, flatten(pointVec));
+
+                colorVec = vec4(colors[cIndex]);
+
+                gl.bindBuffer(gl.ARRAY_BUFFER, cBufferId);
+                gl.bufferSubData(gl.ARRAY_BUFFER, 16 * index, flatten(colorVec));
+
+                numPositions[numPolygons]++;
+                index++;
+            }
+            renderShape()
         }
 
         // handle penggambaran polygon
