@@ -120,6 +120,7 @@ function init() {
         numPositions[0] = 0;
         start = [0];
         index = 0;
+        theta = 0;
         render()
       });
 
