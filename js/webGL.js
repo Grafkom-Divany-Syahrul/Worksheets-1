@@ -28,6 +28,11 @@ var shapesList = [
     {name: "Star", value: 8},
 ];
 
+// var states = [
+//     {name: "Default", value: 1},
+//     {name: "Rotating", value: 2},
+// ]
+
 var pointVec, colorVec;
 var shape = shapesList[0];
 var numPolygons = 0;
@@ -35,6 +40,7 @@ var numPositions = [];
 numPositions[0] = 0;
 var start = [0];
 var cIndex = 0;
+// var state = states[0];
 
 init();
 
@@ -105,6 +111,16 @@ function init() {
         start[numPolygons] = index;
         render();
     });
+
+    var clear = document.getElementById("btnClear")
+    clear.addEventListener("click", () => {
+        numPolygons = 0
+        numPositions = [];
+        numPositions[0] = 0;
+        start = [0];
+        index = 0;
+        render()
+      });
 
     canvas.addEventListener("mousedown", function (event) {
         pointVec = vec2(2 * (event.clientX - canvas.offsetLeft + window.scrollX) / canvas.width - 1,
