@@ -99,9 +99,9 @@
 				<div class="container-fluid h-900">
 					<div class="row mt-5">
 						<div class="col-12">
-							<button class="btn btn-light w-100 mb-2" id = "btnClear">Clear</button>
-							<button class="btn btn-light w-100 mb-2" id = "btnAnimate">Run Animation</button>
-							<button class="btn btn-light w-100 mb-2" id = "btnStopAnimate">Stop Animation</button>
+							<button class="btn btn-light w-100 mb-2" id="btnClear">Clear</button>
+							<button class="btn btn-light w-100 mb-2" id="btnRotate">Start Rotate</button>
+							<button class="btn btn-light w-100 mb-2">Button 3</button>
 						</div>
 					</div>
 				</div>
@@ -124,11 +124,11 @@
 	{
 		float s = sin(uTheta);
 		float c = cos(uTheta);
-
+		
 		gl_Position.x = -s*aPosition.y + c*aPosition.x;
-    	gl_Position.y =  s*aPosition.x + c*aPosition.y;
-    	gl_Position.z = 0.0;
-    	gl_Position.w = 1.0;
+		gl_Position.y =  s*aPosition.x + c*aPosition.y;
+		gl_Position.z = 0.0;
+		gl_Position.w = 1.0;
 		vColor = aColor;
 	}
 </script>
